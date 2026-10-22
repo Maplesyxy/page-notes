@@ -1,0 +1,9 @@
+Bundled fonts (Latin subsets, converted to WOFF):
+
+- Inter — SIL Open Font License 1.1 (https://rsms.me/inter/)
+- Poppins — SIL Open Font License 1.1 (Indian Type Foundry)
+- Lora — SIL Open Font License 1.1 (Cyreal)
+- TeX Gyre Pagella — GUST Font License (GUST e-foundry)
+
+The "Handwritten", "Typewriter", "Monospace" and "System" options use fonts
+already installed on your computer.

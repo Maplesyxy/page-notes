@@ -1,0 +1,138 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Page Notes</title>
+<style>
+  :root { --ink:#1c1c1e; --muted:#6e6e73; --line:rgba(0,0,0,.09); --accent:#ffd84d; --dark:#1d1d20; --soft:#f4f3ef; }
+  * { box-sizing:border-box; }
+  body { margin:0; width:370px; font:13px/1.45 "PN Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; color:var(--ink); background:#fff; -webkit-font-smoothing:antialiased; }
+  button, select, input { font:inherit; color:inherit; }
+  header { display:flex; align-items:center; gap:10px; padding:14px 16px 10px; }
+  header img { width:26px; height:26px; }
+  header h1 { font-size:15.5px; margin:0; flex:1; letter-spacing:-.01em; }
+  .tabs { display:flex; gap:2px; margin:0 12px; background:rgba(0,0,0,.05); border-radius:10px; padding:3px; }
+  .tab { flex:1; background:none; border:none; padding:6px 10px; color:var(--muted); cursor:pointer; border-radius:8px; font-weight:600; font-size:12.5px; }
+  .tab.active { background:#fff; color:var(--ink); box-shadow:0 1px 3px rgba(0,0,0,.12); }
+  section { padding:12px 16px 14px; }
+  .hidden { display:none !important; }
+  .actions { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:6px; }
+  .btn { display:flex; align-items:center; justify-content:center; gap:7px; border:none; background:var(--soft); border-radius:10px; padding:9px 10px; cursor:pointer; font-weight:600; font-size:12.5px; box-shadow:inset 0 0 0 1px var(--line); }
+  .btn:hover { background:#ebe9e3; }
+  .btn.primary { background:var(--dark); color:#fff; box-shadow:none; }
+  .btn.primary:hover { background:#000; }
+  .btn.wide { grid-column:1/-1; }
+  .btn.small { padding:5px 10px; font-size:12px; font-weight:500; }
+  .btn.danger { color:#c5221f; }
+  .btn svg { flex:none; }
+  .group { margin-top:10px; border-radius:12px; box-shadow:inset 0 0 0 1px var(--line); padding:2px 12px; }
+  .setting { display:flex; align-items:center; justify-content:space-between; gap:10px; padding:9px 0; }
+  .setting + .setting { border-top:1px solid var(--line); }
+  .setting small { display:block; color:var(--muted); font-size:11.5px; }
+  .dots { display:flex; gap:6px; }
+  .dot { width:20px; height:20px; border-radius:50%; border:none; cursor:pointer; padding:0; box-shadow:inset 0 0 0 1.5px rgba(0,0,0,.14); }
+  .dot.active { box-shadow:0 0 0 2px #fff, 0 0 0 4px var(--ink); }
+  .switch { position:relative; width:36px; height:21px; flex:none; }
+  .switch input { opacity:0; width:0; height:0; }
+  .slider { position:absolute; inset:0; background:#d0d0d4; border-radius:20px; cursor:pointer; transition:.15s; }
+  .slider:before { content:""; position:absolute; width:15px; height:15px; left:3px; top:3px; background:#fff; border-radius:50%; transition:.15s; box-shadow:0 1px 2px rgba(0,0,0,.2); }
+  input:checked + .slider { background:var(--dark); }
+  input:checked + .slider:before { transform:translateX(15px); }
+  select { border:none; background:var(--soft); border-radius:8px; padding:5px 8px; box-shadow:inset 0 0 0 1px var(--line); cursor:pointer; outline:none; }
+  .font-sel { width:150px; }
+  h2 { font-size:11px; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); margin:16px 0 6px; display:flex; justify-content:space-between; }
+  ul { list-style:none; margin:0 -6px; padding:0; max-height:220px; overflow:auto; }
+  li { display:flex; align-items:flex-start; gap:9px; padding:7px 6px; border-radius:8px; cursor:pointer; }
+  li:hover { background:var(--soft); }
+  li .chip { width:4px; align-self:stretch; border-radius:2px; flex:none; }
+  li .body { flex:1; min-width:0; }
+  li .main { overflow:hidden; text-overflow:ellipsis; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; word-break:break-word; }
+  li .sub { color:var(--muted); font-size:11.5px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  li .x { visibility:hidden; background:none; border:none; color:var(--muted); cursor:pointer; font-size:16px; line-height:1; padding:2px 5px; border-radius:5px; }
+  li:hover .x { visibility:visible; }
+  li .x:hover { background:#e4e2dc; color:#c5221f; }
+  .missing { color:#b06000; font-size:11px; }
+  .empty { color:var(--muted); padding:12px 4px; text-align:center; }
+  .notice { background:#fff8e1; box-shadow:inset 0 0 0 1px #f6e3a2; border-radius:10px; padding:10px 12px; color:#5c4400; }
+  input[type=search] { width:100%; padding:8px 11px; border:none; background:var(--soft); box-shadow:inset 0 0 0 1px var(--line); border-radius:9px; margin-bottom:8px; outline:none; }
+  input[type=search]:focus { background:#fff; box-shadow:inset 0 0 0 1.5px var(--ink); }
+  footer { display:flex; gap:6px; align-items:center; padding:10px 16px; border-top:1px solid var(--line); color:var(--muted); font-size:11.5px; }
+  footer .grow { flex:1; }
+  kbd { font:10.5px ui-monospace,Menlo,monospace; background:var(--soft); box-shadow:inset 0 0 0 1px var(--line); border-radius:4px; padding:1px 4px; }
+</style>
+</head>
+<body>
+  <header>
+    <img src="icons/icon48.png" alt="">
+    <h1>Page Notes</h1>
+  </header>
+  <div class="tabs">
+    <button class="tab active" data-tab="page">This page</button>
+    <button class="tab" data-tab="all">All pages</button>
+    <button class="tab" data-tab="style">Style</button>
+  </div>
+
+  <section id="tab-page">
+    <div id="unsupported" class="notice hidden">
+      Chrome doesn't let extensions run on this page (e.g. the New Tab page, chrome:// pages, or the Chrome Web Store). Open a regular website to take notes.
+    </div>
+    <div id="page-ui">
+      <div class="actions">
+        <button class="btn primary" id="add-note">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8Z"/><path d="M15 3v4a2 2 0 0 0 2 2h4"/></svg>Sticky note</button>
+        <button class="btn primary" id="open-pad">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>Notepad</button>
+        <button class="btn wide" id="hl-sel">Highlight selected text</button>
+      </div>
+
+      <h2><span>On this page</span><span id="page-count"></span></h2>
+      <ul id="page-list"></ul>
+      <div style="margin-top:8px; text-align:right">
+        <button class="btn small danger" id="clear-page" style="display:inline-flex">Clear this page</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="tab-all" class="hidden">
+    <input type="search" id="search" placeholder="Search notes and highlights…">
+    <ul id="all-list" style="max-height:330px"></ul>
+  </section>
+
+  <section id="tab-style" class="hidden">
+    <div class="group">
+      <div class="setting">
+        <div>Note font</div>
+        <select id="font" class="font-sel"></select>
+      </div>
+      <div class="setting">
+        <div>Text size</div>
+        <select id="size"></select>
+      </div>
+    </div>
+    <div class="group">
+      <div class="setting">
+        <div>Highlight color</div>
+        <div class="dots" id="colors"></div>
+      </div>
+      <div class="setting">
+        <div>Highlighter mode<small>Highlight text as soon as you select it</small></div>
+        <label class="switch"><input type="checkbox" id="auto"><span class="slider"></span></label>
+      </div>
+      <div class="setting">
+        <div>Options bar on pages<small>The floating bar on the right edge</small></div>
+        <label class="switch"><input type="checkbox" id="dock"><span class="slider"></span></label>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span class="grow" title="Keyboard shortcuts: highlight, sticky note, notepad"><kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>H</kbd> <kbd>N</kbd> <kbd>P</kbd></span>
+    <button class="btn small" id="export">Export</button>
+    <button class="btn small" id="import">Import</button>
+    <input type="file" id="import-file" accept="application/json,.json" class="hidden">
+  </footer>
+
+  <script src="shared.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
