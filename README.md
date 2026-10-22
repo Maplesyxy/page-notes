@@ -12,6 +12,30 @@ A Chrome extension for highlighting text and leaving notes on any website. Every
 - **Export / import.** Back up all notes and highlights to a JSON file and restore them later.
 - **Local storage only.** Data stays in `chrome.storage` on your machine. Nothing is sent anywhere.
 
+## Screenshots
+
+**Highlight text and attach a note to it.** Pick a color, jot a note, or send the highlight to the notepad.
+
+![Highlight popover](screenshots/highlight.png)
+
+**Sticky notes stay where you put them.** They keep their position while you scroll and reappear when you return to the page.
+
+![Sticky note](screenshots/sticky-note.png)
+
+**Style each note.** Choose a color, one of eight fonts, and a text size. Notes can also be moved into the notepad or copied.
+
+![Note style menu](screenshots/note-style.png)
+
+**Notepad panel.** A rich-text side panel per page, with a list of that page's highlights underneath.
+
+![Notepad](screenshots/notepad.png)
+
+**Toolbar popup and dock.** The popup lists everything on the current page and searches across all pages. The dock sits on the edge of the page for one-click access.
+
+![Popup](screenshots/popup.png)
+
+![Dock](screenshots/dock.png)
+
 ## Keyboard shortcuts
 
 | Shortcut | Action |
@@ -40,4 +64,5 @@ shared.js       Colors, fonts, sizes, and default settings shared by all scripts
 popup.html/js   The toolbar popup
 fonts/          Bundled web fonts (see fonts/LICENSES.txt)
 icons/          Extension icons
+screenshots/    Images used in this README
 ```
