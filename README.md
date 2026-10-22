@@ -12,7 +12,9 @@ A Chrome extension for highlighting text and leaving notes on any website. Every
 - **Export / import.** Back up all notes and highlights to a JSON file and restore them later.
 - **Local storage only.** Data stays in `chrome.storage` on your machine. Nothing is sent anywhere.
 
-## Screenshots
+## Product Images
+
+**all text displayed in here is credited to the 2028 Global Intelligence Crisis, written by Citrini Research
 
 **Highlight text and attach a note to it.** Pick a color, jot a note, or send the highlight to the notepad.
 
